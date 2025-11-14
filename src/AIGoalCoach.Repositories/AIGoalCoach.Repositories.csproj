@@ -3,7 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIGoalCoach.Domain\AIGoalCoach.Domain.csproj" />
+    <ProjectReference Include="..\AIGoalCoach.Infrastructure\AIGoalCoach.Infrastructure.csproj" />
+  </ItemGroup>
 
 </Project>
