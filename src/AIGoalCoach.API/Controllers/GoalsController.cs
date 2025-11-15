@@ -38,21 +38,23 @@ namespace AIGoalCoach.API.Controllers
         [Authorize]
         public async Task<GoalDetail> SaveGoalAndTasks([FromBody] GoalDetail goalDetail)
         {
+            goalDetail.UserId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _goalService.SaveGoalAndTasks(goalDetail);
         }
 
-        [HttpPost("completeTask/{goalTaskId}")]
+        [HttpPost("completeTask")]
         [Authorize]
-        public async Task<bool> MarkGoalTaskAsCompleted(Guid goalTaskId)
+        public async Task<bool> MarkGoalTaskAsCompleted([FromBody] CompleteGoalTaskRequest goalTaskRequest)
         {
-            return await _goalService.MarkGoalTaskAsCompleted(goalTaskId);
+            return await _goalService.MarkGoalTaskAsCompleted(goalTaskRequest.GoalTaskId);
         }
 
         [HttpPost("refineGoal")]
         [Authorize]
-        public async Task<RefinedGoalResponse> GetRefinedGoalsResponse([FromBody] string userPrompt)
+        public async Task<RefinedGoalResponse> GetRefinedGoalsResponse([FromBody] RefineGoalRequest refineGoalRequest)
         {
-            return await _goalService.GetRefinedGoalsResponse(userPrompt);
+            var x =  await _goalService.GetRefinedGoalsResponse(refineGoalRequest.RawGoal);
+            return x;
         }
     }
 }

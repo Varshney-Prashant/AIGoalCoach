@@ -1,0 +1,55 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3>My Goals</h3>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" (click)="openModal()">+ Add Goal</button>
+      </div>
+    </div>
+  
+    <div *ngIf="loading" class="text-center my-5">
+      <div class="spinner-border"></div>
+    </div>
+  
+    <div *ngIf="!loading">
+      <div class="list-group" *ngIf="goals.length > 0">
+        <ng-container *ngFor="let goal of goals">
+          <!-- Goal header as button -->
+          <button class="list-group-item list-group-item-action d-flex flex-column align-items-start"
+                  (click)="toggleGoal(goal)">
+            <!-- Goal title -->
+            <div class="d-flex justify-content-between w-100">
+              <span>{{ goal.actionableGoal }}</span>
+            </div>
+  
+            <!-- Expanded content -->
+            <div *ngIf="goal.expanded" class="mt-2 border-top pt-2 w-100">
+              <div *ngIf="goal.loading" class="text-center">
+                <div class="spinner-border"></div>
+              </div>
+  
+              <ul *ngIf="goal.tasks" class="list-group list-group-flush">
+                <li *ngFor="let t of goal.tasks" class="list-group-item d-flex align-items-center">
+                  <!-- Stop propagation on checkbox -->
+                  <input type="checkbox" class="form-check-input me-2"
+                         [checked]="t.isCompleted"
+                         (click)="$event.stopPropagation()"
+                         (change)="toggleTask(t.id)" />
+                  {{ t.description }}
+                </li>
+              </ul>
+            </div>
+          </button>
+        </ng-container>
+      </div>
+  
+      <div *ngIf="goals.length == 0">
+        <h2>There are no goals saved by you!!</h2>
+      </div>
+    </div>
+  </div>
+  
+  <app-refine-goal-dailog
+      [show]="showModal"
+      (close)="closeModal($event)">
+  </app-refine-goal-dailog>
+  

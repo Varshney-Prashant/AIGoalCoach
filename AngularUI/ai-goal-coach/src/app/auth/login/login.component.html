@@ -1,0 +1,62 @@
+<div class="container mt-5" style="max-width: 450px;">
+    <div class="card p-4 shadow">
+      <h3 class="text-center mb-4">Login</h3>
+  
+      <!-- Login Form -->
+      <form (submit)="login()">
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="email" name="email" class="form-control" required>
+        </div>
+  
+        <div class="mb-3">
+          <label>Password</label>
+          <input type="password" [(ngModel)]="password" name="password" class="form-control" required>
+        </div>
+  
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+  
+      <div class="text-center mt-3">
+        <a class="link-opacity-100" role="button" (click)="openRegisterModal()">+ Add New User</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Register Modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <div class="modal-header">
+          <h5 class="modal-title">Register New User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label>Name</label>
+              <input type="text" [(ngModel)]="regName" name="regName" class="form-control">
+            </div>
+  
+            <div class="mb-3">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="regEmail" name="regEmail" class="form-control">
+            </div>
+  
+            <div class="mb-3">
+              <label>Password</label>
+              <input type="password" [(ngModel)]="regPassword" name="regPassword" class="form-control">
+            </div>
+          </form>
+        </div>
+  
+        <div class="modal-footer">
+          <button class="btn btn-success w-100" (click)="register()">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

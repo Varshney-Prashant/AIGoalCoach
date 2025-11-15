@@ -1,0 +1,44 @@
+<div *ngIf="show">
+  
+    <!-- Backdrop -->
+    <div class="modal-backdrop fade show"></div>
+  
+    <!-- Modal -->
+    <div class="modal fade show d-block" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">   <!-- Centered Modal -->
+        <div class="modal-content">
+  
+          <div class="modal-header">
+            <h5 class="modal-title">Create Goal</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+  
+          <div class="modal-body">
+  
+            <label>Enter Goal</label>
+            <textarea class="form-control mb-3" rows="3"
+                      [(ngModel)]="rawInput"></textarea>
+  
+            <button *ngIf="!refined"
+                    class="btn btn-primary w-100 mb-3"
+                    (click)="refineGoal()">Refine Goal</button>
+  
+            <div *ngIf="refined">
+              <label>Actionable Goal</label>
+              <input class="form-control mb-3" [(ngModel)]="actionableGoal" />
+  
+              <label>Key Results</label>
+  
+              <div *ngFor="let t of tasks; let i = index" class="mb-2">
+                <input class="form-control"
+                       [(ngModel)]="tasks[i]" />
+              </div>
+  
+              <button class="btn btn-primary w-100" (click)="saveGoalAndTasks()">Save Goal</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

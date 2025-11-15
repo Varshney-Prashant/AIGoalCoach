@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AIGoalCoach.Application.Clients
 {
-    public interface IAzureOpenAIService
+    public interface IAIClientService
     {
         Task<RefinedGoalResponse> RefineRawGoal(RefineGoalRequest request);
     }

@@ -5,6 +5,10 @@ using AIGoalCoach.Application.Services.Tokens;
 using AIGoalCoach.Application.Services.Users;
 using AIGoalCoach.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.AI;
+using OllamaSharp;
+using OpenAI;
 using System.ClientModel;
 
 namespace AIGoalCoach.API.Configurations
@@ -21,27 +25,36 @@ namespace AIGoalCoach.API.Configurations
             services.AddRepositoryRegistrations();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAzureOpenAIService, AzureOpenAIService>();
+            services.AddScoped<IAIClientService, AIClientService>();
             services.AddScoped<IGoalService, GoalService>();
         }
 
         public static void AddAzureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var openAIEndpoint = configuration["OpenAI:Endpoint"];
-            var openAIApiKey = configuration["OpenAI:ApiKey"];
-            if (string.IsNullOrEmpty(openAIEndpoint) || string.IsNullOrEmpty(openAIApiKey))
+            
+            services.AddSingleton<IChatClient>(provider =>
             {
-                throw new Exception("OpenAI configuration is missing.");
-            }
+                var config = provider.GetRequiredService<IConfiguration>();
+                var providerName = config["AI:Provider"];
+                var model = config["AI:ChatModel"];
+                var endpoint = config["AI:Endpoint"];
+                var apiKey = config["AI:ApiKey"];
 
-            services.AddSingleton(provider =>
-            {
-                var options = new OpenAI.OpenAIClientOptions
+                if (providerName == "Ollama")
                 {
-                    Endpoint = new Uri(openAIEndpoint)
-                };
-                return new OpenAI.OpenAIClient(new ApiKeyCredential(openAIApiKey), options);
+                    var client = new OllamaApiClient(new Uri(endpoint));
+                    client.SelectedModel = model;
+                    return client;
+                }
+
+                if (providerName == "OpenAI")
+                {
+                    var client = new OpenAIClient(apiKey).GetChatClient(model).AsIChatClient();
+                }
+
+                throw new Exception("Invalid AI provider in config.");
             });
+
         }
     }
 }

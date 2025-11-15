@@ -13,9 +13,9 @@ namespace AIGoalCoach.Application.Services.Goals
     public class GoalService : IGoalService
     {
         private readonly IGoalRepository _goalRepository;
-        private readonly IAzureOpenAIService _azureOpenAIService;
+        private readonly IAIClientService _azureOpenAIService;
 
-        public GoalService(IGoalRepository goalRepository, IAzureOpenAIService openAIService)
+        public GoalService(IGoalRepository goalRepository, IAIClientService openAIService)
         {
             this._goalRepository = goalRepository;
             this._azureOpenAIService = openAIService;
