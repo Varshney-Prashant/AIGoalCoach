@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { GoalService } from '../services/goal-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-goal',
@@ -15,7 +16,8 @@ export class MyGoalComponent {
 
   constructor(
     private goalService: GoalService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -24,35 +26,13 @@ export class MyGoalComponent {
 
   loadGoals() {
     this.goalService.getMyGoals().subscribe((res: any) => {
-      this.goals = res.map((g: any) => ({ ...g, expanded: false }));
+      this.goals = res;
       this.loading = false;
     });
   }
 
-  toggleGoal(goal: any) {
-    goal.expanded = !goal.expanded;
-
-    if (goal.expanded && !goal.tasks) {
-      goal.loading = true;
-      this.goalService.getGoalDetailById(goal.id).subscribe(res => {
-        goal.tasks = res.goalTasks;
-        goal.loading = false;
-      });
-    }
-  }
-
-  toggleTask(id: string) {
-    this.goalService.markGoalTaskAsCompleted(id).subscribe({
-      next: (result) => {
-        if (result){
-          this.toastrService.success('Task was completed', 'Success');
-        }
-        else {
-          this.toastrService.error('There was an error in completeing the task', 'Error');
-        }
-      },
-      error: () => this.toastrService.error('There was an error in completeing the task', 'Error')
-    });
+  navigateToGoal(goal: any) {
+    this.router.navigate(['/goal', goal.id]);
   }
 
   openModal() {

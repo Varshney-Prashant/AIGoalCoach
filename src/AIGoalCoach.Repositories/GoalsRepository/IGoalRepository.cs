@@ -12,6 +12,6 @@ namespace AIGoalCoach.Repositories.GoalsRepository
         Task<IEnumerable<Goal>> GetMyGoals(Guid userId);
         Task<GoalDetail> GetGoalDetailById(Guid goalId);
         Task<GoalDetail> SaveGoalAndTasks(GoalDetail goalDetail);
-        Task<bool> MarkGoalTaskAsCompleted(Guid goalTaskId);
+        Task<bool> MarkGoalTaskAsCompleted(CompleteGoalTaskRequest goalTaskRequest);
     }
 }

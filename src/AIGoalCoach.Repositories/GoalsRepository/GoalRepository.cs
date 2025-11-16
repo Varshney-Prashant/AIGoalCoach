@@ -38,15 +38,15 @@ namespace AIGoalCoach.Repositories.GoalsRepository
                 .ToListAsync();
         }
 
-        public async Task<bool> MarkGoalTaskAsCompleted(Guid goalTaskId)
+        public async Task<bool> MarkGoalTaskAsCompleted(CompleteGoalTaskRequest goalTaskRequest)
         {
-            var goalTask = await _dbContext.GoalTasks.FindAsync(goalTaskId);
+            var goalTask = await _dbContext.GoalTasks.FindAsync(goalTaskRequest.GoalTaskId);
             if (goalTask == null)
             {
                 return false;
             }
 
-            goalTask.IsCompleted = true;
+            goalTask.IsCompleted = goalTaskRequest.MarkAsComplete;
             await _dbContext.SaveChangesAsync();
             return true;
         }

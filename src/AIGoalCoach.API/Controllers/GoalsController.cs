@@ -46,15 +46,14 @@ namespace AIGoalCoach.API.Controllers
         [Authorize]
         public async Task<bool> MarkGoalTaskAsCompleted([FromBody] CompleteGoalTaskRequest goalTaskRequest)
         {
-            return await _goalService.MarkGoalTaskAsCompleted(goalTaskRequest.GoalTaskId);
+            return await _goalService.MarkGoalTaskAsCompleted(goalTaskRequest);
         }
 
         [HttpPost("refineGoal")]
         [Authorize]
         public async Task<RefinedGoalResponse> GetRefinedGoalsResponse([FromBody] RefineGoalRequest refineGoalRequest)
         {
-            var x =  await _goalService.GetRefinedGoalsResponse(refineGoalRequest.RawGoal);
-            return x;
+            return  await _goalService.GetRefinedGoalsResponse(refineGoalRequest.RawGoal);
         }
     }
 }

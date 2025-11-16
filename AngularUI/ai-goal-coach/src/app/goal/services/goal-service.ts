@@ -24,8 +24,8 @@ export class GoalService {
     return this.http.post<GoalDetail>(`${this.baseUrl}/save`, goalDetail);
   }
 
-  markGoalTaskAsCompleted(goalTaskId: string): Observable<boolean> {
-    return this.http.post<boolean>(`${this.baseUrl}/completeTask`, {goalTaskId});
+  markGoalTaskAsCompleted(completeGoalTaskRequest: object): Observable<boolean> {
+    return this.http.post<boolean>(`${this.baseUrl}/completeTask`, completeGoalTaskRequest);
   }
 
   getRefinedGoalResponse(refineGoalRequest: RefineGoalRequest): Observable<RefinedGoalResponse> {

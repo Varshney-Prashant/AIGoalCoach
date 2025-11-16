@@ -1,44 +1,56 @@
 <div *ngIf="show">
-  
     <!-- Backdrop -->
     <div class="modal-backdrop fade show"></div>
   
     <!-- Modal -->
     <div class="modal fade show d-block" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">   <!-- Centered Modal -->
-        <div class="modal-content">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content shadow-lg rounded">
   
-          <div class="modal-header">
-            <h5 class="modal-title">Create Goal</h5>
-            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          <!-- Header -->
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title mb-0">Create Goal</h5>
+            <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
           </div>
   
+          <!-- Body -->
           <div class="modal-body">
   
-            <label>Enter Goal</label>
-            <textarea class="form-control mb-3" rows="3"
-                      [(ngModel)]="rawInput"></textarea>
+            <!-- Step 1: Enter Raw Goal -->
+            <div class="mb-4">
+              <label class="form-label fw-bold">Enter Goal</label>
+              <textarea class="form-control" rows="3" placeholder="Type your goal here..."
+                        [(ngModel)]="rawInput"></textarea>
+            </div>
   
-            <button *ngIf="!refined"
-                    class="btn btn-primary w-100 mb-3"
-                    (click)="refineGoal()">Refine Goal</button>
+            <!-- Refine Goal Button -->
+            <div *ngIf="!refined" class="d-grid mb-3">
+              <button class="btn btn-primary btn-lg" (click)="refineGoal()">Refine Goal</button>
+            </div>
   
+            <!-- Step 2: Refined Goal & Tasks -->
             <div *ngIf="refined">
-              <label>Actionable Goal</label>
-              <input class="form-control mb-3" [(ngModel)]="actionableGoal" />
-  
-              <label>Key Results</label>
-  
-              <div *ngFor="let t of tasks; let i = index" class="mb-2">
-                <input class="form-control"
-                       [(ngModel)]="tasks[i]" />
+              <div class="mb-3">
+                <label class="form-label fw-bold">Actionable Goal</label>
+                <input class="form-control" placeholder="Actionable goal" [(ngModel)]="actionableGoal" />
               </div>
   
-              <button class="btn btn-primary w-100" (click)="saveGoalAndTasks()">Save Goal</button>
+              <div class="mb-3">
+                <label class="form-label fw-bold">Key Results</label>
+                <div *ngFor="let t of tasks; let i = index" class="mb-2">
+                  <input class="form-control" [(ngModel)]="tasks[i]" placeholder="Key Result {{ i + 1 }}" />
+                </div>
+              </div>
+  
+              <!-- Save Button -->
+              <div class="d-grid mt-3">
+                <button class="btn btn-success btn-lg" (click)="saveGoalAndTasks()">Save Goal</button>
+              </div>
             </div>
   
           </div>
         </div>
       </div>
     </div>
-</div>  
+  </div>
+  

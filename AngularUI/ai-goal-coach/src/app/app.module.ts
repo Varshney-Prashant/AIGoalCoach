@@ -12,6 +12,9 @@ import { GoalComponent } from './goal/goal.component';
 import { MyGoalComponent } from './goal/my-goal/my-goal.component';
 import { RefineGoalDailogComponent } from './goal/refine-goal-dailog/refine-goal-dailog.component';
 import { TokenInterceptor } from './auth/login/interceptors/token.interceptor';
+import { LoaderInterceptor } from './shared/loader.interceptor';
+import { LoaderComponent } from './shared/loader.component';
+import { GoalDetailComponent } from './goal/goal-details/goal-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,9 @@ import { TokenInterceptor } from './auth/login/interceptors/token.interceptor';
     LoginComponent,
     GoalComponent,
     MyGoalComponent,
-    RefineGoalDailogComponent
+    RefineGoalDailogComponent,
+    LoaderComponent,
+    GoalDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,8 @@ import { TokenInterceptor } from './auth/login/interceptors/token.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

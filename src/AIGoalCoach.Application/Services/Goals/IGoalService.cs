@@ -13,7 +13,7 @@ namespace AIGoalCoach.Application.Services.Goals
         Task<List<Goal>> GetMyGoals(Guid userId);
         Task<GoalDetail> GetGoalDetailById(Guid goalId);
         Task<GoalDetail> SaveGoalAndTasks(Domain.Goals.GoalDetail goalDetail);
-        Task<bool> MarkGoalTaskAsCompleted(Guid goalTaskId);
+        Task<bool> MarkGoalTaskAsCompleted(CompleteGoalTaskRequest goalTaskRequest);
         Task<RefinedGoalResponse> GetRefinedGoalsResponse(string userPrompt);
     }
 }

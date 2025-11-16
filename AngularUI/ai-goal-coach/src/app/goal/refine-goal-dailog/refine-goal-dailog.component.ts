@@ -48,7 +48,8 @@ export class RefineGoalDailogComponent implements OnChanges {
         else{
           this.toastrService.warning(`${result.message}`, 'Warning');
         }
-      }
+      },
+      error: () => this.toastrService.error('An error ocurred', 'Error')
     })
   }
 

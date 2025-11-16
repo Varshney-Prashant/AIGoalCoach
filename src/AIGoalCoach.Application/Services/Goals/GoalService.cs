@@ -41,9 +41,9 @@ namespace AIGoalCoach.Application.Services.Goals
             return this._azureOpenAIService.RefineRawGoal(request);
         }
 
-        public async Task<bool> MarkGoalTaskAsCompleted(Guid goalTaskId)
+        public async Task<bool> MarkGoalTaskAsCompleted(CompleteGoalTaskRequest goalTaskRequest)
         {
-            return await _goalRepository.MarkGoalTaskAsCompleted(goalTaskId);
+            return await _goalRepository.MarkGoalTaskAsCompleted(goalTaskRequest);
         }
 
         public async Task<GoalDetail> SaveGoalAndTasks(GoalDetail goalDetail)
