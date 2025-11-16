@@ -44,7 +44,7 @@ export class LoginComponent {
     var userRegisterRequest = new UserRegisterRequest({
       emailAddress : this.regEmail,
       userName : this.regName,
-      password: this.password
+      password: this.regPassword
     })
 
     this.auth.register(userRegisterRequest).subscribe({
@@ -65,6 +65,9 @@ export class LoginComponent {
   }
 
   openRegisterModal(){
+    this.regName = '';
+    this.regEmail = '';
+    this.regPassword = '';
     const modalEl = document.getElementById('registerModal')!;
     const modal = new bootstrap.Modal(modalEl, {
       backdrop: 'static',

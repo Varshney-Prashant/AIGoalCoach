@@ -73,18 +73,20 @@ namespace AIGoalCoach.Application.Clients
 
                     ### TASK:
                     1. Rewrite the goal into an *Actionable SMART Goal*  
-                    2. Generate **3 to 5 measurable Key Results**  
+                    2. Generate minumum 3 and maximum 5 measurable Key Results**  
                     3. Respond ONLY in valid JSON using the schema:
 
                     {{
                         ""actionableGoal"": ""string"",
                         ""goalTasks"": [
+                             // Include between 3 to 5 Key Results as strings
                             ""string"",
                             ""string"",
                             ""string""
                         ]
                     }}
-            ";
+                    Ensure that the ""goalTasks"" array has at least 3 items and no more than 5 items. Do not include any explanation outside the JSON.
+                ";
 
             var responseMessage = await this._chatClient.GetResponseAsync([
                 new (ChatRole.System, prompt),

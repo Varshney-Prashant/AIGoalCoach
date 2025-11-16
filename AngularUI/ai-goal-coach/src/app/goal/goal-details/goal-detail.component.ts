@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 
 export class GoalDetailComponent implements OnInit {
   goal: any;
+  isDataLoaded = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,11 +27,12 @@ export class GoalDetailComponent implements OnInit {
   loadGoal(id: string) {
     this.goalService.getGoalDetailById(id).subscribe(res => {
       this.goal = res;
+      this.isDataLoaded = true;
     });
   }
 
   toggleTask(id: string, markAsComplete: boolean) {
-    const completeGoalTaskRequest = { goalTaskId: id, markAsComplete };
+    const completeGoalTaskRequest = { goalTaskId: id, markAsComplete: !markAsComplete };
     this.goalService.markGoalTaskAsCompleted(completeGoalTaskRequest).subscribe({
       next: (result) => {
         if (result) {

@@ -38,7 +38,7 @@
               <div class="mb-3">
                 <label class="form-label fw-bold">Key Results</label>
                 <div *ngFor="let t of tasks; let i = index" class="mb-2">
-                  <input class="form-control" [(ngModel)]="tasks[i]" placeholder="Key Result {{ i + 1 }}" />
+                  <input class="form-control" [(ngModel)]="t.value" placeholder="Key Result {{ i + 1 }}" />
                 </div>
               </div>
   

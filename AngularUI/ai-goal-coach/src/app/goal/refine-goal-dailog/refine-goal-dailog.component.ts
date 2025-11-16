@@ -16,8 +16,9 @@ export class RefineGoalDailogComponent implements OnChanges {
 
   rawInput = '';
   actionableGoal = '';
-  tasks: string[] = [];
+  tasks: any[] = [];
   refined = false;
+  goalDetail:any;
 
   constructor(
     private goalService: GoalService,
@@ -42,7 +43,7 @@ export class RefineGoalDailogComponent implements OnChanges {
       next: (result) => {
         if (result.isGoalRefined){
           this.actionableGoal = result.actionableGoal;
-          this.tasks = result.goalTasks;
+          this.tasks = result.goalTasks.map(task => ({ value: task }));
           this.refined = true;
         }
         else{
@@ -57,7 +58,7 @@ export class RefineGoalDailogComponent implements OnChanges {
     let goalTasks = new Array<GoalTask>();
     this.tasks.forEach(task => {
       let goalTask = new GoalTask({
-        description: task,
+        description: task.value,
         isCompleted: false
       });
 
@@ -73,6 +74,7 @@ export class RefineGoalDailogComponent implements OnChanges {
     this.goalService.saveGoalAndTasks(goalDetail).subscribe(data => {
       if(data.id){
         this.toastrService.success('Goal and Task created successfully', 'Success');
+        this.close.emit(true);
       }
       else{
         this.toastrService.error('An error ocurred while creating goal or tasks', 'Error');
